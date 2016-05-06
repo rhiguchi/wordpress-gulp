@@ -39,7 +39,10 @@ gulp.task('theme:styles', function () {
   var less = $.less({
       plugins: [
         new Autoprefix({ browsers: AUTOPREFIXER_BROWSERS }),
-      ]
+      ],
+      paths: [
+        'node_modules/sanitize.css',
+      ],
     })
     .on('error', errorHandler)
 
