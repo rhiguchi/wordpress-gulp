@@ -3,6 +3,8 @@ var loadPlugins = require('gulp-load-plugins')
 var requireDir = require('require-dir')
 var runSequence = require('run-sequence')
 
+require('./tasks/clean')
+
 gulp.task('default', ['theme'])
 
 var config = require('./config').theme

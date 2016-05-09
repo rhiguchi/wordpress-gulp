@@ -7,6 +7,10 @@ var themeSourceDir = 'src/theme/'
 var themeDestDir = 'build/theme/'
 
 var config = {
+  clean: {
+    build: 'build',
+  },
+
   theme: {
     dest: themeDestDir,
     less: {
