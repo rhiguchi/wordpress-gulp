@@ -1,10 +1,16 @@
 /**
  * タスク間で共通の設定
  **/
+var path = require('path')
+
 // タスクで処理される元のディスプレイ
 var themeSourceDir = 'src/theme/'
 // タスクで処理された出力先
 var themeDestDir = 'build/theme/'
+
+function resolveSourceDir(pathFromSource) {
+  return path.resolve(themeSourceDir, pathFromSource)
+}
 
 var config = {
   clean: {
@@ -14,14 +20,14 @@ var config = {
   theme: {
     dest: themeDestDir,
     less: {
-      source: themeSourceDir + '*.less',
+      source: resolveSourceDir('*.less'),
     },
     babel: {
-      source: themeSourceDir + '*.js',
+      source: resolveSourceDir('*.js'),
     },
     static: {
       source: [
-        themeSourceDir + '**/*.{css,php}',
+        resolveSourceDir('**/*.{css,php}'),
       ],
     },
   },
