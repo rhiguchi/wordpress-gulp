@@ -6,7 +6,7 @@ var runSequence = require('run-sequence')
 require('./tasks/clean')
 require('./tasks/server')
 
-gulp.task('default', ['theme'])
+gulp.task('default', ['theme', 'watch:theme', 'server'])
 
 var config = require('./config').theme
 
