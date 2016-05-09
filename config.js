@@ -4,7 +4,7 @@
 // タスクで処理される元のディスプレイ
 var themeSourceDir = 'src/theme/'
 // タスクで処理された出力先
-var themeDestDir = 'wordpress/wp-content/themes/dgincubation-2016'
+var themeDestDir = 'build/theme/'
 
 var config = {
   theme: {
