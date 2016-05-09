@@ -12,6 +12,9 @@ function resolveSourceDir(pathFromSource) {
   return path.resolve(themeSourceDir, pathFromSource)
 }
 
+var lessSource = resolveSourceDir('*.less')
+var babelSource = resolveSourceDir('*.js')
+
 var config = {
   clean: {
     build: 'build',
@@ -20,14 +23,16 @@ var config = {
   theme: {
     dest: themeDestDir,
     less: {
-      source: resolveSourceDir('*.less'),
+      source: lessSource,
     },
     babel: {
-      source: resolveSourceDir('*.js'),
+      source: babelSource,
     },
     static: {
       source: [
-        resolveSourceDir('**/*.{css,php}'),
+        resolveSourceDir('**'),
+        '!' + lessSource,
+        '!' + babelSource,
       ],
     },
   },
