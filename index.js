@@ -4,6 +4,7 @@ var requireDir = require('require-dir')
 var runSequence = require('run-sequence')
 
 require('./tasks/clean')
+require('./tasks/server')
 
 gulp.task('default', ['theme'])
 
