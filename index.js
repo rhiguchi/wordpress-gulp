@@ -8,4 +8,6 @@ require('./tasks/server')
 require('./tasks/theme')
 require('./tasks/watch')
 
-gulp.task('default', ['theme', 'watch:theme', 'server'])
+gulp.task('default', ['clean'], function (cb) {
+  runSequence(['theme', 'watch:theme', 'server'], cb)
+})
