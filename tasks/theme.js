@@ -13,19 +13,15 @@ gulp.task('theme', function (cb) {
 
 gulp.task('theme:styles', function () {
   var $ = loadPlugins()
-  var Autoprefix = require('less-plugin-autoprefix')
 
-  var AUTOPREFIXER_BROWSERS = [
-    'ie >= 10',
-    'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
-    'safari >= 7',
-    'opera >= 23',
-    'ios >= 7',
-    'android >= 4.4',
-    'bb >= 10'
-  ];
+  var lessPlugins = []
+
+  if (config.less.autoprefix) {
+    var Autoprefix = require('less-plugin-autoprefix')
+    var autoprefixOptions = config.less.autoprefix
+
+    lessPlugins.push(new Autoprefix(autoprefixOptions))
+  }
 
   var errorHandler = function (error) {
     $.util.log(error.toString())
@@ -34,9 +30,7 @@ gulp.task('theme:styles', function () {
 
   // Less ファイルのコンパイル
   var less = $.less({
-      plugins: [
-        new Autoprefix({ browsers: AUTOPREFIXER_BROWSERS }),
-      ],
+      plugins: lessPlugins,
       paths: [
         'node_modules/sanitize.css',
       ],
