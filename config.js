@@ -13,6 +13,7 @@ function resolveSourceDir(pathFromSource) {
 }
 
 var lessSource = resolveSourceDir('*.less')
+var lessMixinSource = resolveSourceDir('less-mixin/*')
 var babelSource = resolveSourceDir('*.js')
 
 var config = {
@@ -45,8 +46,17 @@ var config = {
       source: [
         resolveSourceDir('**'),
         '!' + lessSource,
+        '!' + lessMixinSource,
         '!' + babelSource,
       ],
+    },
+  },
+
+  watch: {
+    theme: {
+      less: {
+        source: [lessSource, lessMixinSource],
+      },
     },
   },
 
