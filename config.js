@@ -54,6 +54,9 @@ var config = {
 
   watch: {
     theme: {
+      static: {
+        base: themeSourceDir,
+      },
       less: {
         source: [lessSource, lessMixinSource],
       },

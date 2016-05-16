@@ -1,4 +1,6 @@
 var gulp = require('gulp')
+var path = require('path')
+var gulpSize = require('gulp-size')
 
 var themeConfig = require('../config').theme
 
@@ -9,7 +11,7 @@ gulp.task('watch:theme', function () {
   var config = require('../config').watch.theme
 
   // 静的ファイルの変更で再読み込み
-  gulp.watch(themeConfig.static.source, ["theme:static"])
+  gulp.watch(path.join(config.static.base, '**'), ["theme:static"])
 
   // スタイルファイルの変更で再読み込み
   gulp.watch(config.less.source, ["theme:styles"])
