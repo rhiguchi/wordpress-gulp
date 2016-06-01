@@ -8,7 +8,7 @@ var argv = require('yargs').argv
 var config = require('../config').staging
 
 /** ステージング環境にアップロードします */
-gulp.task('staging', ['staging:build'], cb => {
+gulp.task('staging', ['staging:build'], () => {
   // FTP サーバーのパスワードを環境変数から取得する
   if (argv.ftppassword == null) {
     throw new Error('デプロイには ftppassword を指定する必要があります')
@@ -28,7 +28,7 @@ gulp.task('staging', ['staging:build'], cb => {
 });
 
 /** ステージング環境のためのデータを構築します。 */
-gulp.task('staging:build', ['staging:compile'], cb => {
+gulp.task('staging:build', ['staging:compile'], () => {
   var $ = loadPlugins()
 
   // WordPress の .htaccess にステージング環境のための .htaccess を追記
@@ -44,7 +44,7 @@ gulp.task('staging:build', ['staging:compile'], cb => {
 });
 
 /** ステージング環境のためのファイルデータ変換 */
-gulp.task('staging:compile', cb => {
+gulp.task('staging:compile', () => {
   var $ = loadPlugins()
 
   return gulp.src(config.compile.source)
@@ -56,7 +56,7 @@ gulp.task('staging:compile', cb => {
 });
 
 /** ステージング環境のためにテーマファイルをサイトディレクトリーにコピー */
-gulp.task('staging:theme', ['theme'], cb => {
+gulp.task('staging:theme', ['theme'], () => {
   var $ = loadPlugins()
 
   return gulp.src(config.theme.source)
