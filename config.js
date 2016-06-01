@@ -86,7 +86,7 @@ var config = {
       dest: 'build/site/' + themePath,
     },
     build: {
-      static: {
+      wordpress: {
         source: [
           'wordpress/**',
           '!wordpress/' + themePath,

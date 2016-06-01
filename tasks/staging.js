@@ -34,7 +34,7 @@ gulp.task('staging:build', ['staging:wordpress',  'staging:compile'], () => {
 gulp.task('staging:wordpress', () => {
   var $ = loadPlugins()
 
-  return gulp.src(config.build.static.source)
+  return gulp.src(config.build.wordpress.source)
     .pipe($.newer(config.build.dest))
     .pipe(gulp.dest(config.build.dest))
     .pipe($.size({ title: 'staging:wordpress' }))
