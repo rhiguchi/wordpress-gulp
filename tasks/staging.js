@@ -28,16 +28,16 @@ gulp.task('staging', ['staging:build'], () => {
 });
 
 /** ステージング環境のためのデータを構築します。 */
-gulp.task('staging:build', ['staging:compile'], () => {
-  var $ = loadPlugins()
+gulp.task('staging:build', ['staging:wordpress',  'staging:compile'], () => {
+});
 
-  // WordPress の .htaccess にステージング環境のための .htaccess を追記
-  var stagingCompiled = gulp.src(config.compile.dest + '/**')
+gulp.task('staging:wordpress', () => {
+  var $ = loadPlugins()
 
   return gulp.src(config.build.static.source)
     .pipe($.newer(config.build.dest))
     .pipe(gulp.dest(config.build.dest))
-    .pipe($.size({ title: 'staging:build' }))
+    .pipe($.size({ title: 'staging:wordpress' }))
     .pipe($.preservetime())
 });
 
