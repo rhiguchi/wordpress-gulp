@@ -70,7 +70,18 @@ var config = {
       proxy: 'www.dgincubation.co.jp.local',
       files: themeDestDir + '**',
     }
-  }
+  },
+
+  // ステージングデプロイ
+  staging: {
+    ftp: {
+      host: 's55-coreserver-jp.value-domain.com',
+      user: 'scienced.dgi',
+      parallel: 10,
+    },
+    source: ['build/site/**', 'build/site/.ht*'],
+    dest: '/',
+  },
 }
 
 module.exports = config
