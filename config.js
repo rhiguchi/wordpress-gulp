@@ -74,6 +74,15 @@ var config = {
 
   // ステージングデプロイ
   staging: {
+    build: {
+      static: {
+        source: [
+          'src/staging-static/**',
+          'src/staging-static/.ht*',
+        ],
+      },
+      dest: 'build/site',
+    },
     ftp: {
       host: 's55-coreserver-jp.value-domain.com',
       user: 'scienced.dgi',
