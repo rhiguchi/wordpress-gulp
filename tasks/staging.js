@@ -28,7 +28,15 @@ gulp.task('staging', ['staging:build'], () => {
 });
 
 /** ステージング環境のためのデータを構築します。 */
-gulp.task('staging:build', ['staging:wordpress',  'staging:compile'], () => {
+gulp.task('staging:build', ['staging:wordpress'], () => {
+  var $ = loadPlugins()
+
+  return gulp.src(config.compile.source)
+    // WordPress の .htaccess にステージング環境のための .htaccess を追記
+    .pipe($.if('.htaccess', $.concat('.htaccess')))
+    .pipe(gulp.dest(config.compile.dest))
+    .pipe($.size({ title: 'staging:compile', showFiles: true }))
+    .pipe($.preservetime())
 });
 
 gulp.task('staging:wordpress', () => {
@@ -38,18 +46,6 @@ gulp.task('staging:wordpress', () => {
     .pipe($.newer(config.build.dest))
     .pipe(gulp.dest(config.build.dest))
     .pipe($.size({ title: 'staging:wordpress' }))
-    .pipe($.preservetime())
-});
-
-/** ステージング環境のためのファイルデータ変換 */
-gulp.task('staging:compile', () => {
-  var $ = loadPlugins()
-
-  return gulp.src(config.compile.source)
-    // WordPress の .htaccess にステージング環境のための .htaccess を追記
-    .pipe($.if('.htaccess', $.concat('.htaccess')))
-    .pipe(gulp.dest(config.compile.dest))
-    .pipe($.size({ title: 'staging:compile', showFiles: true }))
     .pipe($.preservetime())
 });
 
