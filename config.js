@@ -78,6 +78,11 @@ var config = {
       source: ['wordpress/.htaccess', 'src/staging/.ht*'],
       dest: 'build/staging',
     },
+    // 生成されたテーマファイルの移動
+    theme: {
+      source: themeDestDir + '**',
+      dest: 'build/site/wp-content/themes/dgincubation-2016',
+    },
     build: {
       static: {
         source: [

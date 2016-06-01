@@ -54,3 +54,13 @@ gulp.task('staging:compile', cb => {
     .pipe($.size({ title: 'staging:compile', showFiles: true }))
     .pipe($.preservetime())
 });
+
+/** ステージング環境のためにテーマファイルをサイトディレクトリーにコピー */
+gulp.task('staging:theme', ['theme'], cb => {
+  var $ = loadPlugins()
+
+  return gulp.src(config.theme.source)
+    .pipe(gulp.dest(config.theme.dest))
+    .pipe($.size({ title: 'staging:compile' }))
+    .pipe($.preservetime())
+});
