@@ -28,7 +28,7 @@ gulp.task('staging', ['staging:build'], () => {
 });
 
 /** ステージング環境のためのデータを構築します。 */
-gulp.task('staging:build', ['staging:wordpress'], () => {
+gulp.task('staging:build', ['staging:wordpress', 'staging:theme'], () => {
   var $ = loadPlugins()
 
   return gulp.src(config.compile.source)
