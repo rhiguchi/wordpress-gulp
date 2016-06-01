@@ -34,10 +34,8 @@ gulp.task('staging:build', ['staging:compile'], () => {
   // WordPress の .htaccess にステージング環境のための .htaccess を追記
   var stagingCompiled = gulp.src(config.compile.dest + '/**')
 
-  var staticSource = gulp.src(config.build.static.source)
+  return gulp.src(config.build.static.source)
     .pipe($.newer(config.build.dest))
-
-  return streamqueue({ objectMode: true }, stagingCompiled, staticSource)
     .pipe(gulp.dest(config.build.dest))
     .pipe($.size({ title: 'staging:build' }))
     .pipe($.preservetime())

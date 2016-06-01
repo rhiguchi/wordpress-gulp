@@ -78,7 +78,7 @@ var config = {
   staging: {
     compile: {
       source: ['wordpress/.htaccess', 'src/staging/.ht*'],
-      dest: 'build/staging',
+      dest: 'build/site',
     },
     // 生成されたテーマファイルの移動
     theme: {
