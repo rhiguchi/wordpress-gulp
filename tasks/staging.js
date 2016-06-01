@@ -55,6 +55,6 @@ gulp.task('staging:theme', ['theme'], () => {
 
   return gulp.src(config.theme.source)
     .pipe(gulp.dest(config.theme.dest))
-    .pipe($.size({ title: 'staging:compile' }))
+    .pipe($.size({ title: 'staging:theme' }))
     .pipe($.preservetime())
 });
