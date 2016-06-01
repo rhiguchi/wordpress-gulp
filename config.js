@@ -74,6 +74,10 @@ var config = {
 
   // ステージングデプロイ
   staging: {
+    compile: {
+      source: ['wordpress/.htaccess', 'src/staging/.ht*'],
+      dest: 'build/staging',
+    },
     build: {
       static: {
         source: [

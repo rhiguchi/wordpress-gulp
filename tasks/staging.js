@@ -36,3 +36,15 @@ gulp.task('staging:build', cb => {
     .pipe($.size({ title: 'staging:build' }))
     .pipe($.preservetime())
 });
+
+/** ステージング環境のためのファイルデータ変換 */
+gulp.task('staging:compile', cb => {
+  var $ = loadPlugins()
+
+  return gulp.src(config.compile.source)
+    // WordPress の .htaccess にステージング環境のための .htaccess を追記
+    .pipe($.if('.htaccess', $.concat('.htaccess')))
+    .pipe(gulp.dest(config.compile.dest))
+    .pipe($.size({ title: 'staging:compile', showFiles: true }))
+    .pipe($.preservetime())
+});
