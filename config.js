@@ -94,7 +94,7 @@ var config = {
     ftp: {
       host: 's55-coreserver-jp.value-domain.com',
       user: 'scienced.dgi',
-      parallel: 10,
+      parallel: 3,
     },
     source: ['build/site/**', 'build/site/.ht*'],
     dest: '/',
