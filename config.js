@@ -81,8 +81,8 @@ var config = {
     build: {
       static: {
         source: [
-          'src/staging-static/**',
-          'src/staging-static/.ht*',
+          'wordpress/**',
+          '!wordpress/wp-content/themes/*',
         ],
       },
       dest: 'build/site',

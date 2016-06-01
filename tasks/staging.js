@@ -2,6 +2,7 @@ var gulp = require('gulp')
 var loadPlugins = require('gulp-load-plugins')
 var gutil = require('gulp-util')
 var ftp = require('vinyl-ftp')
+var streamqueue = require('streamqueue');
 var argv = require('yargs').argv
 
 var config = require('../config').staging
@@ -27,11 +28,16 @@ gulp.task('staging', ['staging:build'], cb => {
 });
 
 /** ステージング環境のためのデータを構築します。 */
-gulp.task('staging:build', cb => {
+gulp.task('staging:build', ['staging:compile'], cb => {
   var $ = loadPlugins()
 
-  return gulp.src(config.build.static.source)
+  // WordPress の .htaccess にステージング環境のための .htaccess を追記
+  var stagingCompiled = gulp.src(config.compile.dest + '/**')
+
+  var staticSource = gulp.src(config.build.static.source)
     .pipe($.newer(config.build.dest))
+
+  return streamqueue({ objectMode: true }, stagingCompiled, staticSource)
     .pipe(gulp.dest(config.build.dest))
     .pipe($.size({ title: 'staging:build' }))
     .pipe($.preservetime())
