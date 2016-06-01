@@ -96,7 +96,11 @@ var config = {
       user: 'scienced.dgi',
       parallel: 3,
     },
-    source: ['build/site/**', 'build/site/.ht*'],
+    source: [
+      'build/site/**',
+      '!build/site/wp-config.php',
+      'build/site/.ht*',
+    ],
     dest: '/',
   },
 }
