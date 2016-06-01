@@ -76,10 +76,6 @@ var config = {
 
   // ステージングデプロイ
   staging: {
-    compile: {
-      source: ['wordpress/.htaccess', 'src/staging/.ht*'],
-      dest: 'build/site',
-    },
     // 生成されたテーマファイルの移動
     theme: {
       source: themeDestDir + '**',
@@ -92,6 +88,7 @@ var config = {
           '!wordpress/' + themePath,
         ],
       },
+      source: ['wordpress/.htaccess', 'src/staging/.ht*'],
       dest: 'build/site',
     },
     ftp: {

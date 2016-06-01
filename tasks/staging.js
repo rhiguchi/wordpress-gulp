@@ -31,11 +31,11 @@ gulp.task('staging', ['staging:build'], () => {
 gulp.task('staging:build', ['staging:wordpress', 'staging:theme'], () => {
   var $ = loadPlugins()
 
-  return gulp.src(config.compile.source)
+  return gulp.src(config.build.source)
     // WordPress の .htaccess にステージング環境のための .htaccess を追記
     .pipe($.if('.htaccess', $.concat('.htaccess')))
-    .pipe(gulp.dest(config.compile.dest))
-    .pipe($.size({ title: 'staging:compile', showFiles: true }))
+    .pipe(gulp.dest(config.build.dest))
+    .pipe($.size({ title: 'staging:build', showFiles: true }))
     .pipe($.preservetime())
 });
 
