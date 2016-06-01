@@ -7,6 +7,8 @@ var path = require('path')
 var themeSourceDir = 'src/theme/'
 // タスクで処理された出力先
 var themeDestDir = 'build/theme/'
+// 生成するテーマへの相対パス
+var themePath = 'wp-content/themes/dgincubation-2016'
 
 function resolveSourceDir(pathFromSource) {
   return path.resolve(themeSourceDir, pathFromSource)
@@ -81,13 +83,13 @@ var config = {
     // 生成されたテーマファイルの移動
     theme: {
       source: themeDestDir + '**',
-      dest: 'build/site/wp-content/themes/dgincubation-2016',
+      dest: 'build/site/' + themePath,
     },
     build: {
       static: {
         source: [
           'wordpress/**',
-          '!wordpress/wp-content/themes/*',
+          '!wordpress/' + themePath,
         ],
       },
       dest: 'build/site',
