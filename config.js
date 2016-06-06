@@ -83,16 +83,16 @@ var config = {
       ],
     },
 
+    theme: {
+      source: themeDestDir + '**',
+      dest: 'build/site/' + themePath,
+    },
+
     dest: 'build/site',
   },
 
   // ステージングデプロイ
   staging: {
-    // 生成されたテーマファイルの移動
-    theme: {
-      source: themeDestDir + '**',
-      dest: 'build/site/' + themePath,
-    },
     build: {
       source: ['wordpress/.htaccess', 'src/staging/.ht*'],
       dest: 'build/site',

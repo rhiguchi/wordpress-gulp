@@ -13,3 +13,17 @@ gulp.task('build:wordpress', () => {
     .pipe($.size({ title: 'build:wordpress' }))
     .pipe($.preservetime())
 });
+
+/** テーマファイルを最小化 */
+gulp.task('build:theme', ['theme'], () => {
+  var $ = loadPlugins()
+
+  uglify = $.uglify({ preserveComments: 'some' }).on('error', $.util.log)
+
+  return gulp.src(config.theme.source)
+    .pipe($.if('**/*.js', uglify))
+    .pipe($.if('**/*.css', $.cssnano()))
+    .pipe(gulp.dest(config.theme.dest))
+    .pipe($.size({ title: 'staging:theme' }))
+    .pipe($.preservetime())
+});

@@ -28,7 +28,7 @@ gulp.task('staging', ['staging:build'], () => {
 });
 
 /** ステージング環境のためのデータを構築します。 */
-gulp.task('staging:build', ['build:wordpress', 'staging:theme'], () => {
+gulp.task('staging:build', ['build:wordpress', 'build:theme'], () => {
   var $ = loadPlugins()
 
   return gulp.src(config.build.source)
@@ -36,15 +36,5 @@ gulp.task('staging:build', ['build:wordpress', 'staging:theme'], () => {
     .pipe($.if('.htaccess', $.concat('.htaccess')))
     .pipe(gulp.dest(config.build.dest))
     .pipe($.size({ title: 'staging:build', showFiles: true }))
-    .pipe($.preservetime())
-});
-
-/** ステージング環境のためにテーマファイルをサイトディレクトリーにコピー */
-gulp.task('staging:theme', ['theme'], () => {
-  var $ = loadPlugins()
-
-  return gulp.src(config.theme.source)
-    .pipe(gulp.dest(config.theme.dest))
-    .pipe($.size({ title: 'staging:theme' }))
     .pipe($.preservetime())
 });
