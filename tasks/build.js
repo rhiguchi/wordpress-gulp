@@ -3,6 +3,9 @@ var loadPlugins = require('gulp-load-plugins')
 
 var config = require('../config').build
 
+/** サイトを構築します */
+gulp.task('build', ['build:wordpress', 'build:theme']);
+
 /** WordPress データを構築する */
 gulp.task('build:wordpress', () => {
   var $ = loadPlugins()
