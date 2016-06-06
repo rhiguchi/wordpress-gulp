@@ -74,14 +74,20 @@ var config = {
     }
   },
 
-  // ステージングデプロイ
-  staging: {
+  // サイトデータ構築
+  build: {
     wordpress: {
       source: [
         'wordpress/**',
         '!wordpress/' + themePath,
       ],
     },
+
+    dest: 'build/site',
+  },
+
+  // ステージングデプロイ
+  staging: {
     // 生成されたテーマファイルの移動
     theme: {
       source: themeDestDir + '**',
