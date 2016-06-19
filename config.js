@@ -80,6 +80,8 @@ var config = {
       source: [
         'wordpress/**',
         '!wordpress/' + themePath,
+        '!wordpress/wp-content/plugins/wordpress-importer/**',
+        '!wordpress/wp-content/plugins/really-simple-csv-importer/**',
       ],
     },
 
