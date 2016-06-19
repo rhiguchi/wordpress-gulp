@@ -90,6 +90,12 @@ var config = {
       dest: 'build/site/' + themePath,
     },
 
+    site: {
+      source: [
+        'src/site/**',
+      ],
+    },
+
     dest: 'build/site',
   },
 
