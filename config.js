@@ -81,8 +81,8 @@ var config = {
         'wordpress/**',
         'wordpress/.ht*',
         '!wordpress/' + themePath,
-        '!wordpress/wp-content/plugins/wordpress-importer/**',
-        '!wordpress/wp-content/plugins/really-simple-csv-importer/**',
+        '!wordpress/wp-content/plugins/@(*-importer){,/**}',
+        '!wordpress/wordpress/wp-content{,/**}',
       ],
     },
 
