@@ -31,9 +31,11 @@ gulp.task('build:theme', ['theme'], () => {
 
   uglify = $.uglify({ preserveComments: 'some' }).on('error', $.util.log)
 
+  cssnano = $.cssnano({ autoprefixer: false })
+
   return gulp.src(config.theme.source)
     .pipe($.if('**/*.js', uglify))
-    .pipe($.if('**/*.css', $.cssnano()))
+    .pipe($.if('**/*.css', cssnano))
     .pipe(gulp.dest(config.theme.dest))
     .pipe($.size({ title: 'staging:theme' }))
     .pipe($.preservetime())
