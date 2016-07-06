@@ -37,7 +37,7 @@ gulp.task('doc', function () {
   })
 
   return gulp.src(config.source)
-    .pipe(applyTemplate)
+    .pipe($.if('*.md', applyTemplate))
     .pipe($.extname())
     .pipe(gulp.dest(config.dest))
     .pipe($.size({ title: 'doc', showFiles: true }))
