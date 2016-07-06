@@ -118,6 +118,13 @@ var config = {
     ],
     dest: '/',
   },
+
+  // ドキュメント生成
+  doc: {
+    layout: 'src/doc/layout.swig',
+    source: 'src/doc/*.md',
+    dest: 'build/doc',
+  },
 }
 
 module.exports = config
