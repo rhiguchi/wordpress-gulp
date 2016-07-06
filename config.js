@@ -121,10 +121,10 @@ var config = {
 
   // ドキュメント生成
   doc: {
-    layout: 'src/doc/layout.swig',
+    layoutFileName: 'layout.swig',
     source: [
       'src/doc/**',
-      '!src/doc/layout.swig',
+      '!**/layout.swig',
     ],
     dest: 'build/doc',
   },
