@@ -82,6 +82,7 @@ var config = {
         'wordpress/.ht*',
         '!wordpress/' + themePath,
         '!wordpress/wp-content/plugins/@(*-importer){,/**}',
+        '!wordpress/wp-content/plugins/regenerate-thumbnails{,/**}',
         '!wordpress/wordpress/wp-content{,/**}',
       ],
     },
