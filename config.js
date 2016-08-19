@@ -3,14 +3,23 @@
  **/
 var path = require('path')
 var merge = require('merge')
-var packageGulpConfig = require('../package.json').wordpressGulp
+var packageConfig = require('../package.json')
+var packageGulpConfig = packageConfig.wordpressGulp || {}
+
+// 名前の標準設定
+var nameVarsDefault = {
+  theme: packageConfig.name,
+}
+
+// 名前変数をパッケージ設定で上書き
+var nameVars = merge(nameVarsDefault, packageGulpConfig.name)
 
 // タスクで処理される元のディスプレイ
 var themeSourceDir = 'src/theme/'
 // タスクで処理された出力先
 var themeDestDir = 'build/theme/'
 // 生成するテーマへの相対パス
-var themePath = 'wp-content/themes/dgincubation-2016'
+var themePath = 'wp-content/themes/' + nameVars.theme
 
 function resolveSourceDir(pathFromSource) {
   return path.resolve(themeSourceDir, pathFromSource)
