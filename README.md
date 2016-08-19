@@ -8,12 +8,19 @@
 ```
 {
   "wordpressGulp": {
+    "name": {
+      "theme": "original-theme-name"
+    },
     "path": {
       "build": "./site"
     }
   }
 }
 ```
+
+### `name` 設定
+
+* `theme` - テーマ名。サイト構築時に `build/site/wp-content/themes` に出力される名前となる
 
 ## package.json のパッケージ
 
