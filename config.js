@@ -78,12 +78,9 @@ var config = {
   build: {
     wordpress: {
       source: [
-        'wordpress/**',
-        'wordpress/.ht*',
-        '!wordpress/' + themePath,
-        '!wordpress/wp-content/plugins/@(*-importer){,/**}',
-        '!wordpress/wp-content/plugins/regenerate-thumbnails{,/**}',
-        '!wordpress/wordpress/wp-content{,/**}',
+        'WordPress/**',
+        'src/@(wp-content)/**',
+        '!WordPress/wp-content{,/**}',
       ],
     },
 
