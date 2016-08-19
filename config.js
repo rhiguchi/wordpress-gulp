@@ -131,4 +131,12 @@ var config = {
   },
 }
 
+// プロジェクト固有の設定で上書き
+var packageGulpConfig = require('../package.json').wordpressGulp
+
+if (packageGulpConfig) {
+  var merge = require('merge')
+  merge.recursive(config, packageGulpConfig)
+}
+
 module.exports = config

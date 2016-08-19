@@ -1,6 +1,20 @@
 # WordPress サイト構築 gulp タスク集 #
 
 
+## プロジェクト固有の設定
+
+`package.json` でタスクの標準設定を上書きできる。 `"wordpressGulp"` キーのオブジェクトに指定する。
+
+```
+{
+  "wordpressGulp": {
+    "path": {
+      "build": "./site"
+    }
+  }
+}
+```
+
 ## package.json のパッケージ
 
 次のパッケージを利用していて、指定のバージョンで動作確認をしている。
