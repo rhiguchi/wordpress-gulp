@@ -2,6 +2,7 @@
  * タスク間で共通の設定
  **/
 var path = require('path')
+var packageGulpConfig = require('../package.json').wordpressGulp
 
 // タスクで処理される元のディスプレイ
 var themeSourceDir = 'src/theme/'
@@ -129,8 +130,6 @@ var config = {
 }
 
 // プロジェクト固有の設定で上書き
-var packageGulpConfig = require('../package.json').wordpressGulp
-
 if (packageGulpConfig) {
   var merge = require('merge')
   merge.recursive(config, packageGulpConfig)
