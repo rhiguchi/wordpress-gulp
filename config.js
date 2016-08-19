@@ -18,8 +18,6 @@ var nameVars = merge(nameVarsDefault, packageGulpConfig.name)
 var themeSourceDir = 'src/theme/'
 // タスクで処理された出力先
 var themeDestDir = 'build/theme/'
-// 生成するテーマへの相対パス
-var themePath = 'wp-content/themes/' + nameVars.theme
 
 function resolveSourceDir(pathFromSource) {
   return path.resolve(themeSourceDir, pathFromSource)
@@ -97,7 +95,7 @@ var config = {
 
     theme: {
       source: themeDestDir + '**',
-      dest: 'build/site/' + themePath,
+      dest: 'build/site/wp-content/themes/' + nameVars.theme,
     },
 
     site: {
