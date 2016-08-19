@@ -2,6 +2,7 @@
  * タスク間で共通の設定
  **/
 var path = require('path')
+var merge = require('merge')
 var packageGulpConfig = require('../package.json').wordpressGulp
 
 // タスクで処理される元のディスプレイ
@@ -131,7 +132,6 @@ var config = {
 
 // プロジェクト固有の設定で上書き
 if (packageGulpConfig) {
-  var merge = require('merge')
   merge.recursive(config, packageGulpConfig)
 }
 
