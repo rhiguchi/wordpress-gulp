@@ -32,6 +32,11 @@ var config = {
     build: 'build',
   },
 
+  "create-theme-symlink": {
+    source: themeDestDir,
+    dest: 'src/wp-content/themes/' + nameVars.theme,
+  },
+
   theme: {
     dest: themeDestDir,
     less: {
