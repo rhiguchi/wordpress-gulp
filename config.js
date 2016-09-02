@@ -57,7 +57,7 @@ var config = {
         ]
       }
     },
-    babel: {
+    browserify: {
       source: babelSource,
     },
     static: {

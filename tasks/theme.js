@@ -75,7 +75,7 @@ gulp.task('theme:scripts', function () {
       })
   })
 
-  return gulp.src(config.babel.source)
+  return gulp.src(config.browserify.source)
     .pipe(browserify)
     .pipe(gulp.dest(config.dest))
     .pipe($.size({ title: 'theme:scripts', showFiles: true }))
