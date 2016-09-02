@@ -16,6 +16,8 @@ var nameVars = merge(nameVarsDefault, packageGulpConfig.name)
 
 // タスクで処理される元のディスプレイ
 var themeSourceDir = 'src/theme/'
+// モバイル用テーマのソースディレクトリー
+var mobileThemeSourceDir = path.join('src', 'mobile-theme')
 // タスクで処理された出力先
 var themeDestDir = 'build/theme/'
 
@@ -42,7 +44,7 @@ var config = {
     mobileDest: 'build/mobile-theme/',
     less: {
       source: lessSource,
-      mobileSource: 'src/mobile-theme/*.less',
+      mobileSource: path.join(mobileThemeSourceDir, '*.less'),
       autoprefix: {
         browsers: [
           'ie >= 10',
@@ -59,7 +61,7 @@ var config = {
     },
     browserify: {
       source: babelSource,
-      mobileSource: 'src/mobile-theme/*.js',
+      mobileSource: path.join(mobileThemeSourceDir, '*.js'),
     },
     static: {
       source: [
