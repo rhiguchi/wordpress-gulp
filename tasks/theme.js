@@ -1,6 +1,7 @@
 var gulp = require('gulp')
 var loadPlugins = require('gulp-load-plugins')
 var runSequence = require('run-sequence')
+var mergeStream = require('merge-stream')
 
 var config = require('../config').theme
 
@@ -29,19 +30,28 @@ gulp.task('theme:styles', function () {
   }
 
   // Less ファイルのコンパイル
-  var less = $.less({
-      plugins: lessPlugins,
-      paths: [
-        'node_modules/sanitize.css',
-      ],
-    })
-    .on('error', errorHandler)
-
-  return gulp.src(config.less.source)
+  function less() {
+    return $.less({
+        plugins: lessPlugins,
+        paths: [
+          'node_modules/sanitize.css',
+        ],
+      })
+      .on('error', errorHandler)
+  }
+  var defaultCompile = gulp.src(config.less.source)
     .pipe($.sourcemaps.init())
-    .pipe(less)
+    .pipe(less())
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(config.dest))
+
+  var mobileCompile = gulp.src(config.less.mobileSource)
+    .pipe($.sourcemaps.init())
+    .pipe(less())
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest(config.mobileDest))
+
+  return mergeStream(defaultCompile, mobileCompile)
     .pipe($.size({ title: 'theme:styles', showFiles: true }))
 })
 

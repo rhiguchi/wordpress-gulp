@@ -39,8 +39,10 @@ var config = {
 
   theme: {
     dest: themeDestDir,
+    mobileDest: 'build/mobile-theme/',
     less: {
       source: lessSource,
+      mobileSource: 'src/mobile-theme/*.less',
       autoprefix: {
         browsers: [
           'ie >= 10',
