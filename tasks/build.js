@@ -29,7 +29,7 @@ gulp.task('build:wordpress', () => {
 gulp.task('build:theme', ['theme'], () => {
   var $ = loadPlugins()
 
-  uglify = $.uglify({ preserveComments: 'some' }).on('error', $.util.log)
+  uglify = $.uglify(config.theme.uglify).on('error', $.util.log)
 
   cssnano = $.cssnano(config.theme.cssnano)
 
