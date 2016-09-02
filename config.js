@@ -96,6 +96,9 @@ var config = {
     theme: {
       source: themeDestDir + '**',
       dest: 'build/site/wp-content/themes/' + nameVars.theme,
+      cssnano: {
+        autoprefixer: false,
+      },
     },
 
     site: {

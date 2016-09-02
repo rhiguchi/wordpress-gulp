@@ -31,7 +31,7 @@ gulp.task('build:theme', ['theme'], () => {
 
   uglify = $.uglify({ preserveComments: 'some' }).on('error', $.util.log)
 
-  cssnano = $.cssnano({ autoprefixer: false })
+  cssnano = $.cssnano(config.theme.cssnano)
 
   return gulp.src(config.theme.source)
     .pipe($.if('**/*.js', uglify))
