@@ -62,22 +62,30 @@ gulp.task('theme:scripts', function () {
   var browserifyApi = require('browserify')
   var babelify = require('babelify')
 
-  var browserify = through.obj(function (file, enc, cb) {
-    browserifyApi({
-        entries: file,
-        debug: true,
-        transform: [babelify],
-      })
-      .bundle(function (err, res) {
-        if (res) file.contents = res;
+  function browserify() {
+    return through.obj(function (file, enc, cb) {
+      browserifyApi({
+          entries: file,
+          debug: true,
+          transform: [babelify],
+        })
+        .bundle(function (err, res) {
+          if (res) file.contents = res;
 
-        cb(err, file);
-      })
-  })
+          cb(err, file);
+        })
+    })
+  }
 
-  return gulp.src(config.browserify.source)
-    .pipe(browserify)
+  var defaultCompile = gulp.src(config.browserify.source)
+    .pipe(browserify())
     .pipe(gulp.dest(config.dest))
+
+  var mobileCompile = gulp.src(config.browserify.mobileSource)
+    .pipe(browserify())
+    .pipe(gulp.dest(config.mobileDest))
+
+  return mergeStream(defaultCompile, mobileCompile)
     .pipe($.size({ title: 'theme:scripts', showFiles: true }))
 })
 

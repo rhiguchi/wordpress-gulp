@@ -59,6 +59,7 @@ var config = {
     },
     browserify: {
       source: babelSource,
+      mobileSource: 'src/mobile-theme/*.js',
     },
     static: {
       source: [
