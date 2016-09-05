@@ -2,8 +2,6 @@ var gulp = require('gulp')
 var path = require('path')
 var gulpSize = require('gulp-size')
 
-var themeConfig = require('../config').theme
-
 /**
  * ファイルの変更を検知して再ビルドする
  */
@@ -17,5 +15,5 @@ gulp.task('watch:theme', function () {
   gulp.watch(config.styles.source, ["theme:styles"])
 
   // スクリプトファイルの変更で再読み込み
-  gulp.watch(themeConfig.babel.source, ["theme:scripts"])
+  gulp.watch(config.scripts.source, ["theme:scripts"])
 })

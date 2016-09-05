@@ -86,6 +86,12 @@ var config = {
           path.join(mobileThemeSourceDir, lessFilePattern),
         ],
       },
+      scripts: {
+        source: [
+          path.join(themeSourceDir, scriptFilePattern),
+          path.join(mobileThemeSourceDir, scriptFilePattern),
+        ],
+      },
       static: {
         base: themeSourceDir,
       },
