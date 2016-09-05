@@ -18,6 +18,8 @@ var nameVars = merge(nameVarsDefault, packageGulpConfig.name)
 var themeSourceDir = path.join('src', 'theme')
 // モバイル用テーマのソースディレクトリー
 var mobileThemeSourceDir = path.join('src', 'mobile-theme')
+// テーマのソースディレクトリーパターン
+var themeSourcePattern = '{' + [themeSourceDir, mobileThemeSourceDir].join(',') + '}'
 // タスクで処理された出力先
 var themeDestDir = path.join('build', 'theme')
 
@@ -94,12 +96,10 @@ var config = {
       },
       static: {
         source: [
-          path.join(themeSourceDir, '**'),
-          path.join(mobileThemeSourceDir, '**'),
-          '!' + path.join(themeSourceDir, lessFilePattern),
-          '!' + path.join(mobileThemeSourceDir, lessFilePattern),
-          '!' + path.join(themeSourceDir, scriptFilePattern),
-          '!' + path.join(mobileThemeSourceDir, scriptFilePattern),
+          path.join(themeSourcePattern, '**'),
+          // '**/*.js' のようにすると起動に時間がかかりすぎてしまうためディレクトリー付きで指定
+          '!' + path.join(themeSourcePattern, lessFilePattern),
+          '!' + path.join(themeSourcePattern, scriptFilePattern),
         ],
       },
     },
