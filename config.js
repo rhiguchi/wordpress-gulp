@@ -21,13 +21,16 @@ var mobileThemeSourceDir = path.join('src', 'mobile-theme')
 // タスクで処理された出力先
 var themeDestDir = 'build/theme/'
 
+// スクリプトコンパイルタスクで扱われるファイル名パターン
+var scriptFilePattern = '*.js';
+
 function resolveSourceDir(pathFromSource) {
   return path.resolve(themeSourceDir, pathFromSource)
 }
 
 var lessSource = resolveSourceDir('*.less')
 var lessMixinSource = resolveSourceDir('less-mixin/*')
-var babelSource = resolveSourceDir('*.js')
+var babelSource = resolveSourceDir(scriptFilePattern)
 
 var config = {
   clean: {
@@ -61,7 +64,7 @@ var config = {
     },
     browserify: {
       source: babelSource,
-      mobileSource: path.join(mobileThemeSourceDir, '*.js'),
+      mobileSource: path.join(mobileThemeSourceDir, scriptFilePattern),
     },
     static: {
       source: [
