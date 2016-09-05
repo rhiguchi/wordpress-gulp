@@ -36,6 +36,9 @@ var lessFilePattern = path.join('**', '*.less');
 // スクリプトコンパイルタスクで扱われるファイル名パターン
 var scriptFilePattern = path.join('**', '*.js');
 
+// テーマのビルド出力先
+var buildThemeDir = path.join('build', 'site', 'wp-content', 'themes')
+
 var config = {
   clean: {
     build: 'build',
@@ -138,7 +141,7 @@ var config = {
 
     theme: {
       source: path.join(themeCompiledDir, '**'),
-      dest: 'build/site/wp-content/themes/' + nameVars.theme,
+      dest: path.join(buildThemeDir, nameVars.theme),
     },
 
     site: {
