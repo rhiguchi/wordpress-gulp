@@ -28,6 +28,8 @@ var mobileThemeSourceDir = path.join('src', 'mobile-theme')
 var themeSourcePattern = '{' + [themeSourceDir, mobileThemeSourceDir].join(',') + '}'
 // テーマタスクのコンパイルファイルの出力先
 var themeCompiledDir = path.join('build', 'theme')
+// テーマタスクのモバイル用テーマのコンパイルファイルの生成先
+var mobileThemeCompiledDir = path.join('build', 'mobile-theme')
 
 // Less コンパイルタスクで扱われるファイル名パターン
 var lessFilePattern = path.join('**', '*.less');
@@ -43,14 +45,14 @@ var config = {
     source: themeCompiledDir,
     dest: 'src/wp-content/themes/' + nameVars.theme,
     mobile: !withMobileTheme ? null : {
-      source: path.join('build', 'mobile-theme'),
+      source: mobileThemeCompiledDir,
       dest: 'src/wp-content/themes/' + nameVars.mobileTheme,
     },
   },
 
   theme: {
     dest: themeCompiledDir,
-    mobileDest: 'build/mobile-theme/',
+    mobileDest: mobileThemeCompiledDir,
     less: {
       // less で始まる名前のディレクトリーのファイルは less コンパイルを行わない
       source: [
