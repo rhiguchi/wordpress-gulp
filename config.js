@@ -26,10 +26,6 @@ var lessFilePattern = path.join('**', '*.less');
 // スクリプトコンパイルタスクで扱われるファイル名パターン
 var scriptFilePattern = path.join('**', '*.js');
 
-function resolveSourceDir(pathFromSource) {
-  return path.resolve(themeSourceDir, pathFromSource)
-}
-
 var config = {
   clean: {
     build: 'build',
@@ -69,7 +65,7 @@ var config = {
     },
     static: {
       source: [
-        resolveSourceDir('**'),
+        path.join(themeSourceDir, '**'),
         '!' + lessFilePattern,
         '!' + scriptFilePattern,
       ],
