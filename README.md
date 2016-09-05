@@ -1,6 +1,16 @@
 # WordPress サイト構築 gulp タスク集 #
 
 
+## ディレクトリー構成
+
+### src/theme
+
+WordPress のテーマのためのソースファイル置き場。
+
+### src/mobile-theme
+
+WordPress のモバイル用テーマのためのソースファイル置き場。
+
 ## プロジェクト固有の設定
 
 `package.json` でタスクの標準設定を上書きできる。 `"wordpressGulp"` キーのオブジェクトに指定する。
@@ -22,6 +32,13 @@
 
 * `theme` - テーマ名。サイト構築時に `build/site/wp-content/themes` に出力される名前となる
 
+### `withMobileTheme` 設定
+
+    withMobileTheme: false
+
+一部のタスクにモバイル用のテーマの処理を行わせるかの指定を行います。
+
+
 ## package.json のパッケージ
 
 次のパッケージを利用していて、指定のバージョンで動作確認をしている。
@@ -34,7 +51,7 @@
     "browserify": "^12.0.1",
     "del": "^2.2.0",
     "fastclick": "^1.0.6",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-cssnano": "^2.1.2",
     "gulp-extname": "^0.2.2",
@@ -47,8 +64,11 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
+    "lazypipe": "^1.0.1",
     "less-plugin-autoprefix": "^1.5.1",
     "marked": "^0.3.5",
+    "merge": "^1.2.0",
+    "merge-stream": "^1.0.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.5",
     "sanitize.css": "^3.3.0",
