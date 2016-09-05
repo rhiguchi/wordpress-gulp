@@ -93,7 +93,14 @@ var config = {
         ],
       },
       static: {
-        base: themeSourceDir,
+        source: [
+          path.join(themeSourceDir, '**'),
+          path.join(mobileThemeSourceDir, '**'),
+          '!' + path.join(themeSourceDir, lessFilePattern),
+          '!' + path.join(mobileThemeSourceDir, lessFilePattern),
+          '!' + path.join(themeSourceDir, scriptFilePattern),
+          '!' + path.join(mobileThemeSourceDir, scriptFilePattern),
+        ],
       },
     },
   },
