@@ -21,6 +21,8 @@ var mobileThemeSourceDir = path.join('src', 'mobile-theme')
 // タスクで処理された出力先
 var themeDestDir = 'build/theme/'
 
+// Less コンパイルタスクで扱われるファイル名パターン
+var lessFilePattern = '*.less';
 // スクリプトコンパイルタスクで扱われるファイル名パターン
 var scriptFilePattern = path.join('**', '*.js');
 
@@ -28,7 +30,7 @@ function resolveSourceDir(pathFromSource) {
   return path.resolve(themeSourceDir, pathFromSource)
 }
 
-var lessSource = resolveSourceDir('*.less')
+var lessSource = resolveSourceDir(lessFilePattern)
 var lessMixinSource = resolveSourceDir('less-mixin/*')
 
 var config = {
@@ -46,7 +48,7 @@ var config = {
     mobileDest: 'build/mobile-theme/',
     less: {
       source: lessSource,
-      mobileSource: path.join(mobileThemeSourceDir, '*.less'),
+      mobileSource: path.join(mobileThemeSourceDir, lessFilePattern),
       autoprefix: {
         browsers: [
           'ie >= 10',
@@ -75,7 +77,7 @@ var config = {
       mobileSource: [
         path.join(mobileThemeSourceDir, '**'),
         '!' + scriptFilePattern,
-        '!**/*.less',
+        '!**/' + lessFilePattern,
       ],
     },
   },
