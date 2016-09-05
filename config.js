@@ -40,6 +40,7 @@ var config = {
     dest: themeDestDir,
     mobileDest: 'build/mobile-theme/',
     less: {
+      // less で始まる名前のディレクトリーのファイルは less コンパイルを行わない
       source: [
         path.join(themeSourceDir, lessFilePattern),
         '!' + path.join(themeSourceDir, 'less*', lessFilePattern),
