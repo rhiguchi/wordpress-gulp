@@ -70,6 +70,10 @@ var config = {
         '!' + lessMixinSource,
         '!' + babelSource,
       ],
+      mobileSource: [
+        path.join(mobileThemeSourceDir, '**'),
+        '!**/*.@(less|js)',
+      ],
     },
   },
 

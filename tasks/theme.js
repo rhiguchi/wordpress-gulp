@@ -93,9 +93,15 @@ gulp.task('theme:static', function () {
   var $ = loadPlugins()
 
   // 静的ファイル
-  return gulp.src(config.static.source)
+  var defaultCopy = gulp.src(config.static.source)
     .pipe($.newer(config.dest))
     .pipe(gulp.dest(config.dest))
+
+  var mobileCopy = gulp.src(config.static.mobileSource)
+    .pipe($.newer(config.mobileDest))
+    .pipe(gulp.dest(config.mobileDest))
+
+  return mergeStream(defaultCopy, mobileCopy)
     .pipe($.size({ title: 'theme:static', showFiles: true }))
     .pipe($.preservetime())
 })
