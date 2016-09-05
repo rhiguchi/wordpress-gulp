@@ -6,6 +6,9 @@ var merge = require('merge')
 var packageConfig = require('../package.json')
 var packageGulpConfig = packageConfig.wordpressGulp || {}
 
+// モバイルテーマの作成を行うか
+var withMobileTheme = !!packageGulpConfig.withMobileTheme
+
 // 名前の標準設定
 var nameVarsDefault = {
   theme: packageConfig.name,
@@ -14,28 +17,52 @@ var nameVarsDefault = {
 // 名前変数をパッケージ設定で上書き
 var nameVars = merge(nameVarsDefault, packageGulpConfig.name)
 
+// モバイル用子テーマの名前
+nameVars.mobileTheme = nameVars.theme + '-mobile'
+
 // タスクで処理される元のディスプレイ
-var themeSourceDir = 'src/theme/'
-// タスクで処理された出力先
-var themeDestDir = 'build/theme/'
+var themeSourceDir = path.join('src', 'theme')
+// モバイル用テーマのソースディレクトリー
+var mobileThemeSourceDir = path.join('src', 'mobile-theme')
+// テーマのソースディレクトリーパターン
+var themeSourcePattern = '{' + [themeSourceDir, mobileThemeSourceDir].join(',') + '}'
+// テーマタスクのコンパイルファイルの出力先
+var themeCompiledDir = path.join('build', 'theme')
+// テーマタスクのモバイル用テーマのコンパイルファイルの生成先
+var mobileThemeCompiledDir = path.join('build', 'mobile-theme')
 
-function resolveSourceDir(pathFromSource) {
-  return path.resolve(themeSourceDir, pathFromSource)
-}
+// Less コンパイルタスクで扱われるファイル名パターン
+var lessFilePattern = path.join('**', '*.less');
+// スクリプトコンパイルタスクで扱われるファイル名パターン
+var scriptFilePattern = path.join('**', '*.js');
 
-var lessSource = resolveSourceDir('*.less')
-var lessMixinSource = resolveSourceDir('less-mixin/*')
-var babelSource = resolveSourceDir('*.js')
+// テーマのビルド出力先
+var buildThemeDir = path.join('build', 'site', 'wp-content', 'themes')
 
 var config = {
   clean: {
     build: 'build',
   },
 
+  "create-theme-symlink": {
+    source: themeCompiledDir,
+    dest: 'src/wp-content/themes/' + nameVars.theme,
+    mobile: !withMobileTheme ? null : {
+      source: mobileThemeCompiledDir,
+      dest: 'src/wp-content/themes/' + nameVars.mobileTheme,
+    },
+  },
+
   theme: {
-    dest: themeDestDir,
+    dest: themeCompiledDir,
+    mobileDest: mobileThemeCompiledDir,
     less: {
-      source: lessSource,
+      // less で始まる名前のディレクトリーのファイルは less コンパイルを行わない
+      source: [
+        path.join(themeSourceDir, lessFilePattern),
+        '!' + path.join(themeSourceDir, 'less*', lessFilePattern),
+      ],
+      mobileSource: path.join(mobileThemeSourceDir, lessFilePattern),
       autoprefix: {
         browsers: [
           'ie >= 10',
@@ -50,26 +77,45 @@ var config = {
         ]
       }
     },
-    babel: {
-      source: babelSource,
+    browserify: {
+      source: path.join(themeSourceDir, scriptFilePattern),
+      mobileSource: path.join(mobileThemeSourceDir, scriptFilePattern),
     },
     static: {
       source: [
-        resolveSourceDir('**'),
-        '!' + lessSource,
-        '!' + lessMixinSource,
-        '!' + babelSource,
+        path.join(themeSourceDir, '**'),
+        '!' + lessFilePattern,
+        '!' + scriptFilePattern,
+      ],
+      mobileSource: [
+        path.join(mobileThemeSourceDir, '**'),
+        '!' + lessFilePattern,
+        '!' + scriptFilePattern,
       ],
     },
   },
 
   watch: {
     theme: {
-      static: {
-        base: themeSourceDir,
+      styles: {
+        source: [
+          path.join(themeSourceDir, lessFilePattern),
+          path.join(mobileThemeSourceDir, lessFilePattern),
+        ],
       },
-      less: {
-        source: [lessSource, lessMixinSource],
+      scripts: {
+        source: [
+          path.join(themeSourceDir, scriptFilePattern),
+          path.join(mobileThemeSourceDir, scriptFilePattern),
+        ],
+      },
+      static: {
+        source: [
+          path.join(themeSourcePattern, '**'),
+          // '**/*.js' のようにすると起動に時間がかかりすぎてしまうためディレクトリー付きで指定
+          '!' + path.join(themeSourcePattern, lessFilePattern),
+          '!' + path.join(themeSourcePattern, scriptFilePattern),
+        ],
       },
     },
   },
@@ -79,7 +125,7 @@ var config = {
     development: {
       open: false,
       proxy: 'www.dgincubation.co.jp.local',
-      files: themeDestDir + '**',
+      files: path.join(themeCompiledDir, '**'),
     }
   },
 
@@ -94,8 +140,10 @@ var config = {
     },
 
     theme: {
-      source: themeDestDir + '**',
-      dest: 'build/site/wp-content/themes/' + nameVars.theme,
+      source: path.join(themeCompiledDir, '**'),
+      dest: path.join(buildThemeDir, nameVars.theme),
+      mobileSource: path.join(mobileThemeCompiledDir, '**'),
+      mobileDest: path.join(buildThemeDir, nameVars.mobileTheme),
     },
 
     site: {

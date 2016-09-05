@@ -1,6 +1,8 @@
 var gulp = require('gulp')
 var loadPlugins = require('gulp-load-plugins')
 var runSequence = require('run-sequence')
+var mergeStream = require('merge-stream')
+var lazypipe = require('lazypipe')
 
 var config = require('../config').theme
 
@@ -28,20 +30,28 @@ gulp.task('theme:styles', function () {
     this.emit('end')
   }
 
-  // Less ファイルのコンパイル
-  var less = $.less({
-      plugins: lessPlugins,
-      paths: [
-        'node_modules/sanitize.css',
-      ],
+  var lessWithSourceMap = lazypipe()
+    .pipe($.sourcemaps.init)
+    .pipe(function less() {
+      return $.less({
+          plugins: lessPlugins,
+          paths: [
+            'node_modules/sanitize.css',
+          ],
+        })
+        .on('error', errorHandler)
     })
-    .on('error', errorHandler)
+    .pipe($.sourcemaps.write)
 
-  return gulp.src(config.less.source)
-    .pipe($.sourcemaps.init())
-    .pipe(less)
-    .pipe($.sourcemaps.write())
+  var defaultCompile = gulp.src(config.less.source)
+    .pipe(lessWithSourceMap())
     .pipe(gulp.dest(config.dest))
+
+  var mobileCompile = gulp.src(config.less.mobileSource)
+    .pipe(lessWithSourceMap())
+    .pipe(gulp.dest(config.mobileDest))
+
+  return mergeStream(defaultCompile, mobileCompile)
     .pipe($.size({ title: 'theme:styles', showFiles: true }))
 })
 
@@ -52,22 +62,30 @@ gulp.task('theme:scripts', function () {
   var browserifyApi = require('browserify')
   var babelify = require('babelify')
 
-  var browserify = through.obj(function (file, enc, cb) {
-    browserifyApi({
-        entries: file,
-        debug: true,
-        transform: [babelify],
-      })
-      .bundle(function (err, res) {
-        if (res) file.contents = res;
+  function browserify() {
+    return through.obj(function (file, enc, cb) {
+      browserifyApi({
+          entries: file,
+          debug: true,
+          transform: [babelify],
+        })
+        .bundle(function (err, res) {
+          if (res) file.contents = res;
 
-        cb(err, file);
-      })
-  })
+          cb(err, file);
+        })
+    })
+  }
 
-  return gulp.src(config.babel.source)
-    .pipe(browserify)
+  var defaultCompile = gulp.src(config.browserify.source)
+    .pipe(browserify())
     .pipe(gulp.dest(config.dest))
+
+  var mobileCompile = gulp.src(config.browserify.mobileSource)
+    .pipe(browserify())
+    .pipe(gulp.dest(config.mobileDest))
+
+  return mergeStream(defaultCompile, mobileCompile)
     .pipe($.size({ title: 'theme:scripts', showFiles: true }))
 })
 
@@ -75,9 +93,15 @@ gulp.task('theme:static', function () {
   var $ = loadPlugins()
 
   // 静的ファイル
-  return gulp.src(config.static.source)
+  var defaultCopy = gulp.src(config.static.source)
     .pipe($.newer(config.dest))
     .pipe(gulp.dest(config.dest))
+
+  var mobileCopy = gulp.src(config.static.mobileSource)
+    .pipe($.newer(config.mobileDest))
+    .pipe(gulp.dest(config.mobileDest))
+
+  return mergeStream(defaultCopy, mobileCopy)
     .pipe($.size({ title: 'theme:static', showFiles: true }))
     .pipe($.preservetime())
 })
