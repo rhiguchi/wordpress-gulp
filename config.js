@@ -15,11 +15,11 @@ var nameVarsDefault = {
 var nameVars = merge(nameVarsDefault, packageGulpConfig.name)
 
 // タスクで処理される元のディスプレイ
-var themeSourceDir = 'src/theme/'
+var themeSourceDir = path.join('src', 'theme')
 // モバイル用テーマのソースディレクトリー
 var mobileThemeSourceDir = path.join('src', 'mobile-theme')
 // タスクで処理された出力先
-var themeDestDir = 'build/theme/'
+var themeDestDir = path.join('build', 'theme')
 
 // Less コンパイルタスクで扱われるファイル名パターン
 var lessFilePattern = path.join('**', '*.less');
