@@ -142,6 +142,8 @@ var config = {
     theme: {
       source: path.join(themeCompiledDir, '**'),
       dest: path.join(buildThemeDir, nameVars.theme),
+      mobileSource: path.join(mobileThemeCompiledDir, '**'),
+      mobileDest: path.join(buildThemeDir, nameVars.mobileTheme),
     },
 
     site: {

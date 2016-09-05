@@ -1,5 +1,7 @@
 var gulp = require('gulp')
 var loadPlugins = require('gulp-load-plugins')
+var mergeStream = require('merge-stream')
+var lazypipe = require('lazypipe')
 
 var config = require('../config').build
 
@@ -29,14 +31,23 @@ gulp.task('build:wordpress', () => {
 gulp.task('build:theme', ['theme'], () => {
   var $ = loadPlugins()
 
-  uglify = $.uglify({ preserveComments: 'some' }).on('error', $.util.log)
+  var minify = lazypipe()
+    .pipe(function () {
+      return $.if('**/*.js', $.uglify({ preserveComments: 'some' }).on('error', $.util.log))
+    })
+    .pipe(function () {
+      return $.if('**/*.css', $.cssnano({ autoprefixer: false }))
+    })
 
-  cssnano = $.cssnano({ autoprefixer: false })
-
-  return gulp.src(config.theme.source)
-    .pipe($.if('**/*.js', uglify))
-    .pipe($.if('**/*.css', cssnano))
+  var defaultBuild = gulp.src(config.theme.source)
+    .pipe(minify())
     .pipe(gulp.dest(config.theme.dest))
+
+  var mobileBuild = gulp.src(config.theme.mobileSource)
+    .pipe(minify())
+    .pipe(gulp.dest(config.theme.mobileDest))
+
+  return mergeStream(defaultBuild, mobileBuild)
     .pipe($.size({ title: 'staging:theme' }))
     .pipe($.preservetime())
 });
