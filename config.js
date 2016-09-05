@@ -30,8 +30,6 @@ function resolveSourceDir(pathFromSource) {
   return path.resolve(themeSourceDir, pathFromSource)
 }
 
-var lessSource = resolveSourceDir(lessFilePattern)
-
 var config = {
   clean: {
     build: 'build',
@@ -47,7 +45,7 @@ var config = {
     mobileDest: 'build/mobile-theme/',
     less: {
       source: [
-        lessSource,
+        path.join(themeSourceDir, lessFilePattern),
         '!' + path.join(themeSourceDir, 'less*', lessFilePattern),
       ],
       mobileSource: path.join(mobileThemeSourceDir, lessFilePattern),
@@ -89,7 +87,7 @@ var config = {
         base: themeSourceDir,
       },
       less: {
-        source: lessSource,
+        source: path.join(themeSourceDir, lessFilePattern),
       },
     },
   },
