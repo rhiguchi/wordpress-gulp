@@ -22,7 +22,7 @@ var mobileThemeSourceDir = path.join('src', 'mobile-theme')
 var themeDestDir = 'build/theme/'
 
 // スクリプトコンパイルタスクで扱われるファイル名パターン
-var scriptFilePattern = '*.js';
+var scriptFilePattern = path.join('**', '*.js');
 
 function resolveSourceDir(pathFromSource) {
   return path.resolve(themeSourceDir, pathFromSource)
