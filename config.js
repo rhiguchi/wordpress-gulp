@@ -144,6 +144,12 @@ var config = {
       dest: path.join(buildThemeDir, nameVars.theme),
       mobileSource: path.join(mobileThemeCompiledDir, '**'),
       mobileDest: path.join(buildThemeDir, nameVars.mobileTheme),
+      uglify: {
+        preserveComments: 'some',
+      },
+      cssnano: {
+        autoprefixer: false,
+      },
     },
 
     site: {

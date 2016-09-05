@@ -33,10 +33,10 @@ gulp.task('build:theme', ['theme'], () => {
 
   var minify = lazypipe()
     .pipe(function () {
-      return $.if('**/*.js', $.uglify({ preserveComments: 'some' }).on('error', $.util.log))
+      return $.if('**/*.js', $.uglify(config.theme.uglify).on('error', $.util.log))
     })
     .pipe(function () {
-      return $.if('**/*.css', $.cssnano({ autoprefixer: false }))
+      return $.if('**/*.css', $.cssnano(config.theme.cssnano))
     })
 
   var defaultBuild = gulp.src(config.theme.source)
