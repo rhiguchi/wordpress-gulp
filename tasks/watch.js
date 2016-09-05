@@ -14,7 +14,7 @@ gulp.task('watch:theme', function () {
   gulp.watch(path.join(config.static.base, '**'), ["theme:static"])
 
   // スタイルファイルの変更で再読み込み
-  gulp.watch(config.less.source, ["theme:styles"])
+  gulp.watch(config.styles.source, ["theme:styles"])
 
   // スクリプトファイルの変更で再読み込み
   gulp.watch(themeConfig.babel.source, ["theme:scripts"])

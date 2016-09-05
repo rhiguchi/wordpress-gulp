@@ -80,11 +80,14 @@ var config = {
 
   watch: {
     theme: {
+      styles: {
+        source: [
+          path.join(themeSourceDir, lessFilePattern),
+          path.join(mobileThemeSourceDir, lessFilePattern),
+        ],
+      },
       static: {
         base: themeSourceDir,
-      },
-      less: {
-        source: path.join(themeSourceDir, lessFilePattern),
       },
     },
   },
