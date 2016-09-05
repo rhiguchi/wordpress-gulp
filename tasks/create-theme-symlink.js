@@ -12,5 +12,19 @@ gulp.task('create-theme-symlink', function (cb) {
   var destDir = path.parse(dest).dir
   var target = path.relative(destDir, config.source);
 
-  fs.symlink(target, dest, 'dir', cb)
+  fs.symlink(target, dest, 'dir', function (err) {
+    if (err) return cb(err)
+
+    if (!config.mobile) {
+      cb()
+      return
+    }
+
+    // モバイル用の作成
+    var dest = config.mobile.dest
+    var destDir = path.parse(dest).dir
+    var target = path.relative(destDir, config.mobile.source)
+
+    fs.symlink(target, dest, 'dir', cb)
+  })
 })

@@ -6,6 +6,9 @@ var merge = require('merge')
 var packageConfig = require('../package.json')
 var packageGulpConfig = packageConfig.wordpressGulp || {}
 
+// モバイルテーマの作成を行うか
+var withMobileTheme = !!packageGulpConfig.withMobileTheme
+
 // 名前の標準設定
 var nameVarsDefault = {
   theme: packageConfig.name,
@@ -13,6 +16,9 @@ var nameVarsDefault = {
 
 // 名前変数をパッケージ設定で上書き
 var nameVars = merge(nameVarsDefault, packageGulpConfig.name)
+
+// モバイル用子テーマの名前
+nameVars.mobileTheme = nameVars.theme + '-mobile'
 
 // タスクで処理される元のディスプレイ
 var themeSourceDir = path.join('src', 'theme')
@@ -36,6 +42,10 @@ var config = {
   "create-theme-symlink": {
     source: themeDestDir,
     dest: 'src/wp-content/themes/' + nameVars.theme,
+    mobile: !withMobileTheme ? null : {
+      source: path.join('build', 'mobile-theme'),
+      dest: 'src/wp-content/themes/' + nameVars.mobileTheme,
+    },
   },
 
   theme: {
