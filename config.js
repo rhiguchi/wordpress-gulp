@@ -47,7 +47,10 @@ var config = {
     dest: themeDestDir,
     mobileDest: 'build/mobile-theme/',
     less: {
-      source: lessSource,
+      source: [
+        lessSource,
+        '!' + path.join(themeSourceDir, 'less*', lessFilePattern),
+      ],
       mobileSource: path.join(mobileThemeSourceDir, lessFilePattern),
       autoprefix: {
         browsers: [
