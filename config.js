@@ -26,8 +26,8 @@ var themeSourceDir = path.join('src', 'theme')
 var mobileThemeSourceDir = path.join('src', 'mobile-theme')
 // テーマのソースディレクトリーパターン
 var themeSourcePattern = '{' + [themeSourceDir, mobileThemeSourceDir].join(',') + '}'
-// タスクで処理された出力先
-var themeDestDir = path.join('build', 'theme')
+// テーマタスクのコンパイルファイルの出力先
+var themeCompiledDir = path.join('build', 'theme')
 
 // Less コンパイルタスクで扱われるファイル名パターン
 var lessFilePattern = path.join('**', '*.less');
@@ -40,7 +40,7 @@ var config = {
   },
 
   "create-theme-symlink": {
-    source: themeDestDir,
+    source: themeCompiledDir,
     dest: 'src/wp-content/themes/' + nameVars.theme,
     mobile: !withMobileTheme ? null : {
       source: path.join('build', 'mobile-theme'),
@@ -49,7 +49,7 @@ var config = {
   },
 
   theme: {
-    dest: themeDestDir,
+    dest: themeCompiledDir,
     mobileDest: 'build/mobile-theme/',
     less: {
       // less で始まる名前のディレクトリーのファイルは less コンパイルを行わない
@@ -120,7 +120,7 @@ var config = {
     development: {
       open: false,
       proxy: 'www.dgincubation.co.jp.local',
-      files: path.join(themeDestDir, '**'),
+      files: path.join(themeCompiledDir, '**'),
     }
   },
 
@@ -135,7 +135,7 @@ var config = {
     },
 
     theme: {
-      source: path.join(themeDestDir, '**'),
+      source: path.join(themeCompiledDir, '**'),
       dest: 'build/site/wp-content/themes/' + nameVars.theme,
     },
 
