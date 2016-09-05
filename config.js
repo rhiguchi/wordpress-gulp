@@ -22,7 +22,7 @@ var mobileThemeSourceDir = path.join('src', 'mobile-theme')
 var themeDestDir = 'build/theme/'
 
 // Less コンパイルタスクで扱われるファイル名パターン
-var lessFilePattern = '*.less';
+var lessFilePattern = path.join('**', '*.less');
 // スクリプトコンパイルタスクで扱われるファイル名パターン
 var scriptFilePattern = path.join('**', '*.js');
 
@@ -79,8 +79,8 @@ var config = {
       ],
       mobileSource: [
         path.join(mobileThemeSourceDir, '**'),
+        '!' + lessFilePattern,
         '!' + scriptFilePattern,
-        '!**/' + lessFilePattern,
       ],
     },
   },
