@@ -30,7 +30,6 @@ function resolveSourceDir(pathFromSource) {
 
 var lessSource = resolveSourceDir('*.less')
 var lessMixinSource = resolveSourceDir('less-mixin/*')
-var babelSource = resolveSourceDir(scriptFilePattern)
 
 var config = {
   clean: {
@@ -63,7 +62,7 @@ var config = {
       }
     },
     browserify: {
-      source: babelSource,
+      source: path.join(themeSourceDir, scriptFilePattern),
       mobileSource: path.join(mobileThemeSourceDir, scriptFilePattern),
     },
     static: {
