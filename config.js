@@ -93,7 +93,7 @@ var config = {
     development: {
       open: false,
       proxy: 'www.dgincubation.co.jp.local',
-      files: themeDestDir + '**',
+      files: path.join(themeDestDir, '**'),
     }
   },
 
@@ -108,7 +108,7 @@ var config = {
     },
 
     theme: {
-      source: themeDestDir + '**',
+      source: path.join(themeDestDir, '**'),
       dest: 'build/site/wp-content/themes/' + nameVars.theme,
     },
 
