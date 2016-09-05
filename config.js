@@ -31,7 +31,6 @@ function resolveSourceDir(pathFromSource) {
 }
 
 var lessSource = resolveSourceDir(lessFilePattern)
-var lessMixinSource = resolveSourceDir('less-mixin/*')
 
 var config = {
   clean: {
@@ -90,7 +89,7 @@ var config = {
         base: themeSourceDir,
       },
       less: {
-        source: [lessSource, lessMixinSource],
+        source: lessSource,
       },
     },
   },
