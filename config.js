@@ -73,8 +73,7 @@ var config = {
     static: {
       source: [
         resolveSourceDir('**'),
-        '!' + lessSource,
-        '!' + lessMixinSource,
+        '!' + lessFilePattern,
         '!' + scriptFilePattern,
       ],
       mobileSource: [
