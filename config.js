@@ -124,7 +124,6 @@ var config = {
   server: {
     development: {
       open: false,
-      proxy: 'www.dgincubation.co.jp.local',
       files: path.join(themeCompiledDir, '**'),
     }
   },
