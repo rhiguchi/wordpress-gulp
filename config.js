@@ -75,7 +75,10 @@ var config = {
           'android >= 4.4',
           'bb >= 10'
         ]
-      }
+      },
+      options: {
+        paths: ['node_modules'],
+      },
     },
     browserify: {
       source: path.join(themeSourceDir, scriptFilePattern),

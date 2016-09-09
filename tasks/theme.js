@@ -3,6 +3,7 @@ var loadPlugins = require('gulp-load-plugins')
 var runSequence = require('run-sequence')
 var mergeStream = require('merge-stream')
 var lazypipe = require('lazypipe')
+var merge = require('merge')
 
 var config = require('../config').theme
 
@@ -33,13 +34,8 @@ gulp.task('theme:styles', function () {
   var lessWithSourceMap = lazypipe()
     .pipe($.sourcemaps.init)
     .pipe(function less() {
-      return $.less({
-          plugins: lessPlugins,
-          paths: [
-            'node_modules/sanitize.css',
-          ],
-        })
-        .on('error', errorHandler)
+      var options = merge.recursive({ plugins: lessPlugins }, config.less.options)
+      return $.less(options).on('error', errorHandler)
     })
     .pipe($.sourcemaps.write)
 
