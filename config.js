@@ -138,6 +138,7 @@ var config = {
         'WordPress/**',
         'src/@(wp-content)/**',
         '!WordPress/wp-content{,/**}',
+        "!src/wp-content/themes{,/**}",
       ],
     },
 
