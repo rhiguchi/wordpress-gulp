@@ -157,6 +157,7 @@ var config = {
     site: {
       source: [
         'src/site/**',
+        'src/site/.ht*',
       ],
     },
 
