@@ -1,12 +1,19 @@
 # WordPress サイト構築 gulp タスク集 #
 
+## build タスク
+
+### オプション
+
+* `--production` - 本番環境に構築します。`src/production-site` ディレクトリーのファイルが使われます。
+
 ## deploy タスク
+
+日付を比較して新しいファイルだけをデプロイします。全ファイルを置き換えたい場合は手動で FTP からファイルを削除してください。
 
 ### オプション
 
 * `--ftppassword [string]` - FTP のパスワードを設定します。
 * `--target (all|wp-content|theme)` - デプロイ対象ファイルを指定します。無指定では `theme` です。
-* `--newer` - 日付を比較して新しいファイルだけをデプロイします。
 * `--production` - 本番環境にデプロイします。 `deploy.production` の設定が必要です。
 
 ### deploy:theme

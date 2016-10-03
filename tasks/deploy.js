@@ -10,7 +10,6 @@ var config = require('../config').deploy
 gulp.task('deploy:ftp', () => {
   var argv = yargs
     .choices('target', ['all', 'wp-content', 'theme'])
-    .boolean('newer')
     .boolean('production')
     .argv
 
@@ -50,6 +49,6 @@ gulp.task('deploy:ftp', () => {
 
   // build/site フォルダ内のファイルをすべて FTP 転送でアップロードする。
   return gulp.src(source, { buffer: false })
-    .pipe($.if(argv.newer, conn.newer(dest)))
+    .pipe(conn.newer(dest))
     .pipe(conn.dest(dest))
 })
