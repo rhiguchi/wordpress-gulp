@@ -157,8 +157,8 @@ var config = {
 
     site: {
       source: [
-        'src/site/**',
-        'src/site/.ht*',
+        path.join('src', 'site', '**'),
+        path.join('src', 'site', '.ht*'),
       ],
     },
 
