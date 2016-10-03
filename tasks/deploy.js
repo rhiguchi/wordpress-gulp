@@ -3,8 +3,14 @@ var loadPlugins = require('gulp-load-plugins')
 var ftp = require('vinyl-ftp')
 var yargs = require('yargs')
 var path = require('path')
+var runSequence = require('run-sequence')
 
 var config = require('../config').deploy
+
+/** サイトを構築してデプロイします */
+gulp.task('deploy', ['build'], (cb) => {
+  runSequence('deploy:ftp', cb)
+})
 
 /** サイトデータをデプロイします */
 gulp.task('deploy:ftp', () => {
