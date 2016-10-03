@@ -1,13 +1,21 @@
 var gulp = require('gulp')
+var merge = require('merge')
 var loadPlugins = require('gulp-load-plugins')
 var mergeStream = require('merge-stream')
 var lazypipe = require('lazypipe')
+var yargs = require('yargs')
 
 var config = require('../config').build
 
 /** サイトを構築します */
 gulp.task('build', ['build:wordpress', 'build:theme'], () => {
   var $ = loadPlugins()
+  var argv = yargs.boolean('production').argv
+
+  // 公開サイト用設定をマージ
+  if (argv.production) {
+    config = merge.recursive(true, config, config.production)
+  }
 
   return gulp.src(config.site.source)
     .pipe($.newer(config.dest))

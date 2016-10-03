@@ -163,25 +163,15 @@ var config = {
     },
 
     dest: 'build/site',
-  },
 
-  // ステージングデプロイ
-  staging: {
-    build: {
-      source: ['wordpress/.htaccess', 'src/staging/.ht*'],
-      dest: 'build/site',
-    },
-    ftp: {
-      host: 's55-coreserver-jp.value-domain.com',
-      user: 'scienced.dgi',
-      parallel: 3,
-    },
-    source: [
-      'build/site/**',
-      '!build/site/wp-config.php',
-      'build/site/.ht*',
-    ],
-    dest: '/',
+    production: {
+      site: {
+        source: [
+          path.join('src', 'production-site', '**'),
+          path.join('src', 'production-site', '.ht*'),
+        ],
+      },
+    }
   },
 
   deploy: {
