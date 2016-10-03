@@ -187,11 +187,29 @@ var config = {
   deploy: {
     theme: {
       source: path.join(buildThemeDir, '**'),
-      dest: path.join('wp-content/themes'),
+      dest: path.join('wp-content', 'themes'),
+    },
+    "wp-content": {
+      source: path.join('build', 'site', 'wp-content', '**'),
+      dest: 'wp-content',
+    },
+    all: {
+      source: [
+        path.join('build', 'site', '**'),
+        '!' + path.join('build', 'site', 'wp-config.php'),
+      ],
+      dest: '',
     },
     staging: {
       host: 'example.com',
       user: 'guest',
+      destBaseDir: '/',
+    },
+    production: {
+      // 各プロジェクトの package.json で指定してください。
+      // host: 'production.example.com',
+      // user: 'guest',
+      // destBaseDir: '/home/user/www',
     },
   },
 

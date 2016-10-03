@@ -2,12 +2,17 @@ var gulp = require('gulp')
 var loadPlugins = require('gulp-load-plugins')
 var ftp = require('vinyl-ftp')
 var yargs = require('yargs')
+var path = require('path')
 
 var config = require('../config').deploy
 
-/** テーマファイルをデプロイします */
-gulp.task('deploy:theme', () => {
-  var argv = yargs.boolean('newer').boolean('production').argv
+/** サイトデータをデプロイします */
+gulp.task('deploy:ftp', () => {
+  var argv = yargs
+    .choices('target', ['all', 'wp-content', 'theme'])
+    .boolean('newer')
+    .boolean('production')
+    .argv
 
   // FTP サーバーのパスワードを環境変数から取得する
   if (argv.ftppassword == null) {
@@ -27,10 +32,15 @@ gulp.task('deploy:theme', () => {
     }
   }
 
-  // 出力先ディレクトリー
-  var dest = config.theme.dest
+  // デプロイ対象ディレクトリー設定（指定なしではテーマのみ）
+  var targetDir = config[argv.target ? argv.target : 'theme']
+  var source = targetDir.source
+  var dest = targetDir.dest
 
-  if (ftpConfBase.dest != null) dest = ftpConfBase.dest
+  // 出力先ベースディレクトリー指定にあわせる
+  if (ftpConfBase.destBaseDir != null) {
+    dest = path.join(ftpConfBase.destBaseDir, dest)
+  }
 
   // FTP 接続
   var conn = ftp.create(Object.assign({
@@ -39,7 +49,7 @@ gulp.task('deploy:theme', () => {
   }, ftpConfBase))
 
   // build/site フォルダ内のファイルをすべて FTP 転送でアップロードする。
-  return gulp.src(config.theme.source, { buffer: false })
+  return gulp.src(source, { buffer: false })
     .pipe($.if(argv.newer, conn.newer(dest)))
     .pipe(conn.dest(dest))
 })

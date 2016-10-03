@@ -5,6 +5,7 @@
 ### オプション
 
 * `--ftppassword [string]` - FTP のパスワードを設定します。
+* `--target (all|wp-content|theme)` - デプロイ対象ファイルを指定します。無指定では `theme` です。
 * `--newer` - 日付を比較して新しいファイルだけをデプロイします。
 * `--production` - 本番環境にデプロイします。 `deploy.production` の設定が必要です。
 
