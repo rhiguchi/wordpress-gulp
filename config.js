@@ -184,6 +184,17 @@ var config = {
     dest: '/',
   },
 
+  deploy: {
+    theme: {
+      source: path.join(buildThemeDir, '**'),
+      dest: path.join('wp-content/themes'),
+    },
+    staging: {
+      host: 'example.com',
+      user: 'guest',
+    },
+  },
+
   // ドキュメント生成
   doc: {
     layoutFileName: 'layout.swig',

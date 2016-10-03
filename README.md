@@ -1,5 +1,17 @@
 # WordPress サイト構築 gulp タスク集 #
 
+## deploy タスク
+
+### オプション
+
+* `--ftppassword [string]` - FTP のパスワードを設定します。
+* `--newer` - 日付を比較して新しいファイルだけをデプロイします。
+* `--production` - 本番環境にデプロイします。 `deploy.production` の設定が必要です。
+
+### deploy:theme
+
+テーマデータだけデプロイします。
+
 
 ## ディレクトリー構成
 
