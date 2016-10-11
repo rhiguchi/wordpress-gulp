@@ -136,9 +136,9 @@ var config = {
     wordpress: {
       source: [
         'WordPress/**',
-        'src/@(wp-content)/**',
+        '@(wp-content)/**',
         '!WordPress/wp-content{,/**}',
-        "!src/wp-content/themes{,/**}",
+        "!wp-content/themes{,/**}",
       ],
     },
 
