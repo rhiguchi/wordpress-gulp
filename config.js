@@ -113,12 +113,14 @@ var config = {
         ],
       },
       static: {
+        base: themeSourceDir,
         source: [
           path.join(themeSourcePattern, '**'),
           // '**/*.js' のようにすると起動に時間がかかりすぎてしまうためディレクトリー付きで指定
           '!' + path.join(themeSourcePattern, lessFilePattern),
           '!' + path.join(themeSourcePattern, scriptFilePattern),
         ],
+        dest: themeCompiledDir,
       },
     },
   },
