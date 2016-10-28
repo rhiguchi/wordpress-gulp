@@ -64,6 +64,7 @@ gulp.task('theme:scripts', function () {
           debug: true,
         })
         .transform('babelify')
+        .transform('browserify-shim', { global: true })
         .bundle(function (err, res) {
           if (res) file.contents = res;
 
