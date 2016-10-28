@@ -56,15 +56,14 @@ gulp.task('theme:scripts', function () {
 
   var through = require('through2')
   var browserifyApi = require('browserify')
-  var babelify = require('babelify')
 
   function browserify() {
     return through.obj(function (file, enc, cb) {
       browserifyApi({
           entries: file,
           debug: true,
-          transform: [babelify],
         })
+        .transform('babelify')
         .bundle(function (err, res) {
           if (res) file.contents = res;
 
